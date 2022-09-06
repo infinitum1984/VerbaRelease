@@ -6,13 +6,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.emptydev.verba.database.WordsDatabaseDao
 import com.emptydev.verba.editwords.EditWordsViewModel
 
-
-
 class WordsListViewModelFactory(
         private val dataSource:WordsDatabaseDao,
         private val context: Context
 ): ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(WordsListViewModel::class.java)){
             return WordsListViewModel(dataSource,context) as T
         }

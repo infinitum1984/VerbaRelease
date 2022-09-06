@@ -11,7 +11,7 @@ class EditWordsViewModelFactory(
         private val dataSource:WordsDatabaseDao,
 
         ): ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(EditWordsViewModel::class.java)){
             return EditWordsViewModel(setId,dataSource) as T
         }
