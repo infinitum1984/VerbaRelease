@@ -16,11 +16,18 @@ import com.emptydev.verba.delete.DeleteDialog
 import com.emptydev.verba.mistakes.MistakesDialog
 import com.emptydev.verba.training.TrainingType
 import com.google.android.material.snackbar.Snackbar
+import org.koin.core.parameter.parametersOf
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinApiExtension
 
+@KoinApiExtension
 class EditWordsFragment : Fragment() {
 
 
-    private lateinit var viewModel: EditWordsViewModel
+    val viewModel: EditWordsViewModel by viewModel{
+        val args = EditWordsFragmentArgs.fromBundle(requireArguments())
+        parametersOf(args.wordsKey)
+    }
 
     private lateinit var binding: EditWordsFragmentBinding
     override fun onCreateView(
@@ -32,10 +39,7 @@ class EditWordsFragment : Fragment() {
         val arguments = EditWordsFragmentArgs.fromBundle(requireArguments())
         val application = requireNotNull(this.activity).application
         Log.d("D_EditWordsFragment","onCreateView: ${arguments.wordsKey}");
-        val dataSource= WordsDatabase.getInstance(application).wordsDatabaseDao
-        val viewModelFactory=EditWordsViewModelFactory(arguments.wordsKey,dataSource)
-        viewModel = ViewModelProvider(this,viewModelFactory).get(EditWordsViewModel::class.java)
-        binding.viewModel=viewModel
+            binding.viewModel=viewModel
 
         binding.lifecycleOwner=this
         return binding.root

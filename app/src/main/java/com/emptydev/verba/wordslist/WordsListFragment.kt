@@ -1,9 +1,7 @@
 package com.emptydev.verba.wordslist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.AdapterView.AdapterContextMenuInfo
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -13,16 +11,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emptydev.verba.R
-import com.emptydev.verba.database.WordsDatabase
 import com.emptydev.verba.databinding.WordsListFragmentBinding
 import com.emptydev.verba.delete.DeleteDialog
 import com.emptydev.verba.training.TrainingType
 import com.google.android.material.snackbar.Snackbar
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinApiExtension
 
-
+@KoinApiExtension
 class WordsListFragment : Fragment() {
 
-    private lateinit var viewModel: WordsListViewModel
+    val wordsViewModel: WordsListViewModel by viewModel()
     private lateinit var binding: WordsListFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,13 +29,10 @@ class WordsListFragment : Fragment() {
     ): View? {
         setHasOptionsMenu(true)
         binding=DataBindingUtil.inflate(inflater,R.layout.words_list_fragment,container,false)
-        val dataSource=WordsDatabase.getInstance(requireContext()).wordsDatabaseDao
-        val viewModelFactory=WordsListViewModelFactory(dataSource,requireContext())
-        val viewModel= ViewModelProvider(this, viewModelFactory).get(WordsListViewModel::class.java)
-        binding.viewModel=viewModel
+        binding.viewModel=wordsViewModel
         binding.lifecycleOwner=this
         val adapter=WordsListAdapter({
-          viewModel.onPlaySet(it)
+          wordsViewModel.onPlaySet(it)
         },{wordId,action->
             when(action){
                 WordsListHolder.Action.DELETE->deleteSet(wordId)
@@ -44,25 +40,25 @@ class WordsListFragment : Fragment() {
             }
         })
         binding.wordsList.adapter=adapter
-        viewModel.words.observe(viewLifecycleOwner, Observer {
+        wordsViewModel.words.observe(viewLifecycleOwner, Observer {
 
             adapter.setData(it)
 
         })
-        viewModel.navigateToEditWords.observe(viewLifecycleOwner, Observer {
+        wordsViewModel.navigateToEditWords.observe(viewLifecycleOwner, Observer {
             if (it!=null) {
                 this.findNavController()
                         .navigate(WordsListFragmentDirections.actionWordsListFragmentToEditWordsFragment(it))
-                viewModel.doneNavigation()
+                wordsViewModel.doneNavigation()
             }
         })
-        viewModel.onFastPlaySet.observe(viewLifecycleOwner, Observer {
+        wordsViewModel.onFastPlaySet.observe(viewLifecycleOwner, Observer {
             if (it!=null){
                 findNavController().navigate(WordsListFragmentDirections.actionWordsListFragmentToTrainingFragment(it,TrainingType.BASIC))
 
             }
         })
-        viewModel.setIsEmpty.observe(viewLifecycleOwner, Observer {
+        wordsViewModel.setIsEmpty.observe(viewLifecycleOwner, Observer {
             if (it==true){
                 showSetIsEmptyException();
             }
@@ -96,20 +92,14 @@ class WordsListFragment : Fragment() {
         requireActivity().finish()
     }
     private fun playSet(wordId:Long){
-        viewModel.fastPlaySet(wordId)
+        wordsViewModel.fastPlaySet(wordId)
     }
     private fun deleteSet(setId:Long){
         DeleteDialog(requireContext(),{
             if (it==true){
-                viewModel.deleteSet(setId)
+                wordsViewModel.deleteSet(setId)
             }
         }).show()
 
     }
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(WordsListViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
 }

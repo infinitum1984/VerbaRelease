@@ -2,7 +2,9 @@ package com.emptydev.verba
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import org.koin.core.component.KoinApiExtension
 
+@KoinApiExtension
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

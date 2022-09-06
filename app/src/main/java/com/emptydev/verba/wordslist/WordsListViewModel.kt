@@ -11,8 +11,7 @@ import com.emptydev.verba.database.WordsDatabaseDao
 import kotlinx.coroutines.launch
 
 
-class WordsListViewModel(private val database: WordsDatabaseDao,
-                         private val context: Context
+class WordsListViewModel(private val database: WordsDatabaseDao
 ) : ViewModel() {
     val words = database.getAllWordsLists()
     private val _navigateToEditWords = MutableLiveData<Long>()

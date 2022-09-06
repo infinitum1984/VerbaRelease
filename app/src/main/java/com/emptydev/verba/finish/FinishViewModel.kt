@@ -9,7 +9,7 @@ import com.emptydev.verba.database.WordsDatabaseDao
 import com.emptydev.verba.stringToPairArray
 import kotlinx.coroutines.launch
 
-class FinishViewModel(val wordKey: Long, val database: WordsDatabaseDao,val numCorrect:Int,val numException:Int) : ViewModel() {
+class FinishViewModel(val wordKey: Long, val numCorrect:Int,val numException:Int, val database: WordsDatabaseDao,) : ViewModel() {
     val numMistakes=MutableLiveData<Pair<Int,Int>>()
     val goodPercent=MutableLiveData<Double>()
     val onShowMistakes=MutableLiveData<Boolean>()

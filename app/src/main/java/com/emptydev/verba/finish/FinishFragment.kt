@@ -14,10 +14,16 @@ import com.emptydev.verba.database.WordsDatabase
 import com.emptydev.verba.databinding.FinishFragmentBinding
 import com.emptydev.verba.mistakes.MistakesDialog
 import kotlin.math.roundToInt
-
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.parameter.parametersOf
+@KoinApiExtension
 class FinishFragment : Fragment() {
     private lateinit var binding:FinishFragmentBinding
-    private lateinit var viewModel: FinishViewModel
+    val viewModel: FinishViewModel by viewModel {
+        val args=FinishFragmentArgs.fromBundle(requireArguments())
+        parametersOf(args.wordKey, args.numCorrect,args.numException)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,9 +32,6 @@ class FinishFragment : Fragment() {
         setHasOptionsMenu(true)
         
         binding=DataBindingUtil.inflate(inflater,R.layout.finish_fragment,container,false)
-        val args=FinishFragmentArgs.fromBundle(requireArguments())
-        val viewModelFactory=FinishViewModelFactory(args.wordKey,WordsDatabase.getInstance(appContext(requireActivity())).wordsDatabaseDao,args.numCorrect,args.numException)
-        viewModel=ViewModelProvider(this,viewModelFactory).get(FinishViewModel::class.java)
         binding.viewModel=viewModel
         viewModel.numMistakes.observe(viewLifecycleOwner, Observer {
             binding.tvMistakes.setText("${requireContext().getString(R.string.mistake)} ${it.first}/${it.second}")
