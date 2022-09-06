@@ -14,11 +14,18 @@ import com.emptydev.verba.appContext
 import com.emptydev.verba.database.WordsDatabase
 import com.emptydev.verba.databinding.TrainingFragmentBinding
 import com.emptydev.verba.vibratePhone
+import org.koin.core.parameter.parametersOf
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinApiExtension
 
+@KoinApiExtension
 class TrainingFragment : Fragment() {
 
 
-    private lateinit var viewModel: TrainingViewModel
+    val viewModel: TrainingViewModel by viewModel{
+        val args=TrainingFragmentArgs.fromBundle(requireArguments())
+        parametersOf(args.wordsKey, args.trainingType)
+    }
     private lateinit var binding:TrainingFragmentBinding
 
     override fun onCreateView(
@@ -26,15 +33,11 @@ class TrainingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
+        val args=TrainingFragmentArgs.fromBundle(requireArguments())
 
         binding=DataBindingUtil.inflate(inflater, R.layout.training_fragment, container,false)
-        val args=TrainingFragmentArgs.fromBundle(requireArguments())
         binding.setLifecycleOwner(this)
 
-        val dataSource=WordsDatabase.getInstance(appContext(requireActivity())).wordsDatabaseDao
-
-        val viewModelFactory=TrainingViewModelFactory(args.wordsKey,dataSource,args.trainingType)
-        viewModel=ViewModelProvider(this,viewModelFactory).get(TrainingViewModel::class.java)
         binding.viewModel=viewModel
         viewModel.curPairWords.observe(viewLifecycleOwner, Observer {
             binding.tvResult.visibility=View.INVISIBLE

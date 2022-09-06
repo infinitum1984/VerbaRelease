@@ -13,7 +13,7 @@ import com.emptydev.verba.database.WordsDatabaseDao
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
-class TrainingViewModel(val wordsKey:Long,val database:WordsDatabaseDao, val trainingType:TrainingType) : ViewModel() {
+class TrainingViewModel(val wordsKey:Long, val trainingType:TrainingType, val database:WordsDatabaseDao ) : ViewModel() {
     // TODO: Implement the ViewModel
     lateinit var wordsObject:Words
 
