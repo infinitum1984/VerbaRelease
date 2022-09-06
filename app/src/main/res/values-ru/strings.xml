@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Verba</string>
+
+
+    <string name="delete_dialog_title">Удалить набор слов</string>
+    <string name="delete_dialog_msg">Вы уверены, что хотите удалить набор слов?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="input_field_empty">Заполените все поля для ввода!</string>
+    <string name="different_number_words">Разное количество слов!</string>
+    <string name="mistake">Ошибка</string>
+    <string name="text_copied">Текст скопирован!</string>
+    <string name="word">Слово</string>
+    <string name="right">Правильно</string>
+    <string name="verify">Провреить</string>
+    <string name="next">Далее</string>
+    <string name="words">Слов</string>
+    <string name="learning_language">Изучаемый язык</string>
+    <string name="translation_into_your_language">Перевод на ваш язык</string>
+    <string name="show_last_mistakes">Последние ошибки</string>
+    <string name="revers">Наоброт</string>
+    <string name="run_last_mistakes">Последние ошибки</string>
+    <string name="you_cool_on">Ты крут на</string>
+    <string name="set_is_empty">Set is Empty!</string>
+
+</resources>

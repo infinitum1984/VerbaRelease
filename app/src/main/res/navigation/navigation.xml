@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/wordsListFragment">
+
+    <fragment
+        android:id="@+id/wordsListFragment"
+        android:name="com.emptydev.verba.wordslist.WordsListFragment"
+        android:label="words_list_fragment"
+        tools:layout="@layout/words_list_fragment" >
+
+        <action
+            android:id="@+id/action_wordsListFragment_to_editWordsFragment"
+            app:destination="@id/editWordsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_wordsListFragment_to_trainingFragment"
+            app:destination="@id/trainingFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"
+            />
+
+    </fragment>
+    <fragment
+        android:id="@+id/editWordsFragment"
+        android:name="com.emptydev.verba.editwords.EditWordsFragment"
+        android:label="EditWordsFragment"
+        tools:layout="@layout/edit_words_fragment"
+        >
+        <argument
+            android:name="wordsKey"
+            app:argType="long"
+            />
+        <action
+            android:id="@+id/action_editWordsFragment_to_wordsListFragment"
+            app:destination="@id/wordsListFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_editWordsFragment_to_trainingFragment"
+            app:destination="@id/trainingFragment"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/trainingFragment"
+        android:name="com.emptydev.verba.training.TrainingFragment"
+        android:label="training_fragment"
+        tools:layout="@layout/training_fragment" >
+        <action
+            android:id="@+id/action_trainingFragment_to_editWordsFragment"
+            app:destination="@id/editWordsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"
+            />
+        <argument
+            android:name="wordsKey"
+            app:argType="long" />
+        <argument
+            android:name="trainingType"
+            app:argType="com.emptydev.verba.training.TrainingType" />
+        <action
+            android:id="@+id/action_trainingFragment_to_finishFragment"
+            app:destination="@id/finishFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"
+            />
+        <action
+            android:id="@+id/action_trainingFragment_to_wordsListFragment"
+            app:destination="@id/wordsListFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/finishFragment"
+        android:name="com.emptydev.verba.finish.FinishFragment"
+        android:label="finish_fragment"
+        tools:layout="@layout/finish_fragment" >
+        <action
+            android:id="@+id/action_finishFragment_to_editWordsFragment"
+            app:destination="@id/editWordsFragment"
+            app:popUpTo="@id/wordsListFragment"
+            app:popUpToInclusive="false"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"
+            />
+        <action
+            android:id="@+id/action_finishFragment_to_wordsListFragment"
+            app:destination="@id/wordsListFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"
+            />
+        <argument
+            android:name="wordKey"
+            app:argType="long"
+            />
+        <argument
+            android:name="numCorrect"
+            app:argType="integer" />
+        <argument
+            android:name="numException"
+            app:argType="integer" />
+    </fragment>
+</navigation>

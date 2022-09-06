@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#A65EFD</color>
+    <color name="colorPrimaryDark">#7B55A8</color>
+    <color name="colorAccent">#ec2F4B</color>
+    <color name="word_item_color">#9543F8</color>
+    <color name="gradient_start">#B874FB</color>
+    <color name="gradient_end">#A273ED</color>
+    <color name="color_buttoncircle">#2196F3</color>
+    <color name="dark_white">#E8DEF4</color>
+</resources>

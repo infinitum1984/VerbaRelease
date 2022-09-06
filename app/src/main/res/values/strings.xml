@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Verba</string>
+
+
+    <string name="delete_dialog_title">Delete a set of words</string>
+    <string name="delete_dialog_msg">Are you sure you want to delete a set of words?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="input_field_empty">Input field is empty!</string>
+    <string name="different_number_words">Different number of words in fields!</string>
+    <string name="mistake">Mistakes</string>
+    <string name="text_copied">Text copied!</string>
+    <string name="word">Word</string>
+    <string name="right">Right</string>
+    <string name="verify">Verify</string>
+    <string name="next">Next</string>
+    <string name="words">words</string>
+    <string name="learning_language">Learning language</string>
+    <string name="translation_into_your_language">Translation into your language</string>
+    <string name="show_last_mistakes">Show last mistakes</string>
+    <string name="revers">Revers</string>
+    <string name="run_last_mistakes">Run last mistakes</string>
+    <string name="you_cool_on">You cool on</string>
+    <string name="text_saved">Text saved</string>
+    <string name="set_is_empty">Set is Empty!</string>
+</resources>
