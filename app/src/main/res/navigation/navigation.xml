@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/wordsListFragment"
-        android:name="com.emptydev.verba.wordslist.WordsListFragment"
+        android:name="com.emptydev.verba.wordslist.presentation.WordsListFragment"
         android:label="words_list_fragment"
         tools:layout="@layout/words_list_fragment" >
 
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/editWordsFragment"
-        android:name="com.emptydev.verba.editwords.EditWordsFragment"
+        android:name="com.emptydev.verba.editwords.presentation.EditWordsFragment"
         android:label="EditWordsFragment"
         tools:layout="@layout/edit_words_fragment"
         >
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/trainingFragment"
-        android:name="com.emptydev.verba.training.TrainingFragment"
+        android:name="com.emptydev.verba.training.presentation.TrainingFragment"
         android:label="training_fragment"
         tools:layout="@layout/training_fragment" >
         <action
@@ -75,7 +75,7 @@
             app:argType="long" />
         <argument
             android:name="trainingType"
-            app:argType="com.emptydev.verba.training.TrainingType" />
+            app:argType="com.emptydev.verba.training.presentation.TrainingType" />
         <action
             android:id="@+id/action_trainingFragment_to_finishFragment"
             app:destination="@id/finishFragment"
@@ -95,7 +95,7 @@
     </fragment>
     <fragment
         android:id="@+id/finishFragment"
-        android:name="com.emptydev.verba.finish.FinishFragment"
+        android:name="com.emptydev.verba.finish.presentation.FinishFragment"
         android:label="finish_fragment"
         tools:layout="@layout/finish_fragment" >
         <action

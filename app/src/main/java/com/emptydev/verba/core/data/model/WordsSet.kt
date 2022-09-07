@@ -1,12 +1,11 @@
-package com.emptydev.verba.database
+package com.emptydev.verba.core.data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.HashMap
 
-@Entity(tableName = "words_table")
-data class Words(
+@Entity(tableName = "words_set")
+data class WordsSet(
 
     @PrimaryKey(autoGenerate = true)
     var wordId:Long=0L,

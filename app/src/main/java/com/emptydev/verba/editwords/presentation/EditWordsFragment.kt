@@ -1,6 +1,5 @@
-package com.emptydev.verba.editwords
+package com.emptydev.verba.editwords.presentation
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -10,11 +9,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.emptydev.verba.*
-import com.emptydev.verba.database.WordsDatabase
 import com.emptydev.verba.databinding.EditWordsFragmentBinding
 import com.emptydev.verba.delete.DeleteDialog
 import com.emptydev.verba.mistakes.MistakesDialog
-import com.emptydev.verba.training.TrainingType
+import com.emptydev.verba.training.presentation.TrainingType
 import com.google.android.material.snackbar.Snackbar
 import org.koin.core.parameter.parametersOf
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -36,7 +34,8 @@ class EditWordsFragment : Fragment() {
     ): View? {
         setHasOptionsMenu(true)
         binding= DataBindingUtil.inflate(inflater,R.layout.edit_words_fragment,container,false)
-        val arguments = EditWordsFragmentArgs.fromBundle(requireArguments())
+        val arguments =
+            EditWordsFragmentArgs.fromBundle(requireArguments())
         val application = requireNotNull(this.activity).application
         Log.d("D_EditWordsFragment","onCreateView: ${arguments.wordsKey}");
             binding.viewModel=viewModel
@@ -121,7 +120,12 @@ class EditWordsFragment : Fragment() {
         viewModel.onPlaySet.observe(viewLifecycleOwner, Observer {
             if (it==true) {
                 if (viewModel.wordsSet.value!!.numWords!=0) {
-                    findNavController().navigate(EditWordsFragmentDirections.actionEditWordsFragmentToTrainingFragment(viewModel.wordsSet.value!!.wordId, processType()))
+                    findNavController().navigate(
+                        EditWordsFragmentDirections.actionEditWordsFragmentToTrainingFragment(
+                            viewModel.wordsSet.value!!.wordId,
+                            processType()
+                        )
+                    )
                     viewModel.onSetPlayed()
                 }else{
                     showExceptionInputEmpty(binding.fabPlay)
@@ -225,7 +229,7 @@ class EditWordsFragment : Fragment() {
     private fun showExceptionInputNoneEqual(view: View){
         Snackbar.make(view,getString(R.string.different_number_words),Snackbar.LENGTH_LONG).show()
     }
-    private fun processType():TrainingType{
+    private fun processType(): TrainingType {
         val revers=binding.switchRevers.isChecked
         val last_mistakes=binding.swLastMistake.isChecked
 

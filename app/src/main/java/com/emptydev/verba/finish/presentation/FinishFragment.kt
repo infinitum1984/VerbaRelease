@@ -1,6 +1,5 @@
-package com.emptydev.verba.finish
+package com.emptydev.verba.finish.presentation
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -9,8 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.emptydev.verba.R
-import com.emptydev.verba.appContext
-import com.emptydev.verba.database.WordsDatabase
 import com.emptydev.verba.databinding.FinishFragmentBinding
 import com.emptydev.verba.mistakes.MistakesDialog
 import kotlin.math.roundToInt
@@ -21,7 +18,7 @@ import org.koin.core.parameter.parametersOf
 class FinishFragment : Fragment() {
     private lateinit var binding:FinishFragmentBinding
     val viewModel: FinishViewModel by viewModel {
-        val args=FinishFragmentArgs.fromBundle(requireArguments())
+        val args= com.emptydev.verba.finish.FinishFragmentArgs.fromBundle(requireArguments())
         parametersOf(args.wordKey, args.numCorrect,args.numException)
     }
 
@@ -44,7 +41,11 @@ class FinishFragment : Fragment() {
 
         })
         binding.fabHome.setOnClickListener {
-            findNavController().navigate(FinishFragmentDirections.actionFinishFragmentToEditWordsFragment(viewModel.wordKey))
+            findNavController().navigate(
+                com.emptydev.verba.finish.FinishFragmentDirections.actionFinishFragmentToEditWordsFragment(
+                    viewModel.wordKey
+                )
+            )
         }
         viewModel.onShowMistakes.observe(viewLifecycleOwner, Observer {
             if (it==true){
@@ -67,7 +68,7 @@ class FinishFragment : Fragment() {
     }
 
     private fun goToHome() {
-        findNavController().navigate(FinishFragmentDirections.actionFinishFragmentToWordsListFragment())
+        findNavController().navigate(com.emptydev.verba.finish.FinishFragmentDirections.actionFinishFragmentToWordsListFragment())
     }
 
 

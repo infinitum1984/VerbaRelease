@@ -1,10 +1,10 @@
-package com.emptydev.verba.finish
+package com.emptydev.verba.finish.presentation
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.emptydev.verba.database.WordsDatabaseDao
+import com.emptydev.verba.core.data.database.WordsDatabaseDao
 
 import com.emptydev.verba.stringToPairArray
 import kotlinx.coroutines.launch

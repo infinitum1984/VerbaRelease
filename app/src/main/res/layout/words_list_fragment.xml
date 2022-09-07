@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.emptydev.verba.wordslist.WordsListViewModel" />
+            type="com.emptydev.verba.wordslist.presentation.WordsListViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -15,7 +15,7 @@
     android:layout_height="match_parent"
     android:background="@color/dark_white"
 
-    tools:context=".wordslist.WordsListFragment">
+    tools:context=".wordslist.presentation.WordsListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/words_list"

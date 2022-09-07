@@ -1,4 +1,4 @@
-package com.emptydev.verba.training
+package com.emptydev.verba.training.presentation
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,16 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.emptydev.verba.*
-import com.emptydev.verba.database.Words
-import com.emptydev.verba.database.WordsDatabase
-import com.emptydev.verba.database.WordsDatabaseDao
+import com.emptydev.verba.core.data.model.WordsSet
+import com.emptydev.verba.core.data.database.WordsDatabaseDao
 
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
-class TrainingViewModel(val wordsKey:Long, val trainingType:TrainingType, val database:WordsDatabaseDao ) : ViewModel() {
+class TrainingViewModel(val wordsKey:Long, val trainingType: TrainingType, val database:WordsDatabaseDao ) : ViewModel() {
     // TODO: Implement the ViewModel
-    lateinit var wordsObject:Words
+    lateinit var wordsSetObject: WordsSet
 
     //private val _Words= MutableLiveData<Map<String,String>>()
     val Words: ArrayList<Pair<String,String>> = ArrayList()
@@ -52,21 +51,21 @@ class TrainingViewModel(val wordsKey:Long, val trainingType:TrainingType, val da
     init {
         Log.d("D_TrainingViewModel",": $trainingType");
         viewModelScope.launch {
-            wordsObject=database.get(wordsKey)
+            wordsSetObject=database.get(wordsKey)
             var map:List<Pair<String,String>>
 
             when(trainingType){
 
                 TrainingType.BASIC -> {
-                    map= stringToPairArray(wordsObject.words)
+                    map= stringToPairArray(wordsSetObject.words)
 
                 }
-                TrainingType.LAST_MISTAKE -> map= stringToPairArray(wordsObject.lastMistakes)
-                TrainingType.REVERS->{
-                    map= stringToPairArrayRevers(wordsObject.words)
+                TrainingType.LAST_MISTAKE -> map= stringToPairArray(wordsSetObject.lastMistakes)
+                TrainingType.REVERS ->{
+                    map= stringToPairArrayRevers(wordsSetObject.words)
                 }
-                TrainingType.REVERS_LAST_MISTAKE->{
-                    map= stringToPairArrayRevers(wordsObject.lastMistakes)
+                TrainingType.REVERS_LAST_MISTAKE ->{
+                    map= stringToPairArrayRevers(wordsSetObject.lastMistakes)
                 }
 
             }
@@ -78,7 +77,7 @@ class TrainingViewModel(val wordsKey:Long, val trainingType:TrainingType, val da
             _curWordPairNum.value= Pair(1,Words.size)
             _mistakes.value=Mistakes
             _curPairWords.value= Words[curWordId]
-            _nameWordsList.value=wordsObject.name
+            _nameWordsList.value=wordsSetObject.name
         }
 
 
@@ -129,20 +128,20 @@ class TrainingViewModel(val wordsKey:Long, val trainingType:TrainingType, val da
     }
     fun saveResults(){
         viewModelScope.launch {
-            if (trainingType==TrainingType.REVERS || trainingType==TrainingType.REVERS_LAST_MISTAKE){
-                wordsObject.lastMistakes= arrayToStringRevers(Mistakes)
+            if (trainingType== TrainingType.REVERS || trainingType== TrainingType.REVERS_LAST_MISTAKE){
+                wordsSetObject.lastMistakes= arrayToStringRevers(Mistakes)
             }else{
-                wordsObject.lastMistakes= arrayToString(Mistakes)
+                wordsSetObject.lastMistakes= arrayToString(Mistakes)
             }
-            if (trainingType!=TrainingType.LAST_MISTAKE && trainingType!=TrainingType.REVERS_LAST_MISTAKE){
-                wordsObject.lastResultPrc= (100-(Mistakes.size.toDouble()*100)/  wordsObject.numWords.toDouble()).roundToInt()
+            if (trainingType!= TrainingType.LAST_MISTAKE && trainingType!= TrainingType.REVERS_LAST_MISTAKE){
+                wordsSetObject.lastResultPrc= (100-(Mistakes.size.toDouble()*100)/  wordsSetObject.numWords.toDouble()).roundToInt()
             }
-            update(wordsObject)
+            update(wordsSetObject)
             _toFinish.value=true
 
         }
     }
-    private suspend fun update(set:Words){
+    private suspend fun update(set: WordsSet){
         database.update(set)
     }
 

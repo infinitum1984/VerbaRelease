@@ -1,10 +1,10 @@
 package com.emptydev.verba.di
 
-import com.emptydev.verba.editwords.EditWordsViewModel
-import com.emptydev.verba.finish.FinishViewModel
-import com.emptydev.verba.training.TrainingType
-import com.emptydev.verba.training.TrainingViewModel
-import com.emptydev.verba.wordslist.WordsListViewModel
+import com.emptydev.verba.editwords.presentation.EditWordsViewModel
+import com.emptydev.verba.finish.presentation.FinishViewModel
+import com.emptydev.verba.training.presentation.TrainingType
+import com.emptydev.verba.training.presentation.TrainingViewModel
+import com.emptydev.verba.wordslist.presentation.WordsListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

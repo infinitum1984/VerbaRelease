@@ -8,14 +8,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.emptydev.verba.training.TrainingViewModel" />
+            type="com.emptydev.verba.training.presentation.TrainingViewModel" />
     </data>
 
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".training.TrainingFragment">
+    tools:context=".training.presentation.TrainingFragment">
 
     <EditText
         android:id="@+id/ed_word"

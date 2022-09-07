@@ -1,4 +1,4 @@
-package com.emptydev.verba.training
+package com.emptydev.verba.training.presentation
 
 enum class TrainingType{
     BASIC,

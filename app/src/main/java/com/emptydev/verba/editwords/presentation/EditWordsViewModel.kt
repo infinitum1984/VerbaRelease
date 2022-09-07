@@ -1,4 +1,4 @@
-package com.emptydev.verba.editwords
+package com.emptydev.verba.editwords.presentation
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.emptydev.verba.arrayToString
-import com.emptydev.verba.database.Words
-import com.emptydev.verba.database.WordsDatabaseDao
+import com.emptydev.verba.core.data.model.WordsSet
+import com.emptydev.verba.core.data.database.WordsDatabaseDao
 import kotlinx.coroutines.launch
 
 class EditWordsViewModel(
@@ -80,7 +80,7 @@ class EditWordsViewModel(
             _onTextChanged.value=false
         }
     }
-    private suspend fun update(set:Words){
+    private suspend fun update(set: WordsSet){
         database.update(set)
     }
 

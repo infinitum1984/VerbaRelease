@@ -1,4 +1,4 @@
-package com.emptydev.verba.wordslist
+package com.emptydev.verba.wordslist.presentation
 
 import android.os.Bundle
 import android.view.*
@@ -6,14 +6,13 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emptydev.verba.R
 import com.emptydev.verba.databinding.WordsListFragmentBinding
 import com.emptydev.verba.delete.DeleteDialog
-import com.emptydev.verba.training.TrainingType
+import com.emptydev.verba.training.presentation.TrainingType
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinApiExtension
@@ -31,12 +30,12 @@ class WordsListFragment : Fragment() {
         binding=DataBindingUtil.inflate(inflater,R.layout.words_list_fragment,container,false)
         binding.viewModel=wordsViewModel
         binding.lifecycleOwner=this
-        val adapter=WordsListAdapter({
+        val adapter= WordsListAdapter({
           wordsViewModel.onPlaySet(it)
         },{wordId,action->
             when(action){
-                WordsListHolder.Action.DELETE->deleteSet(wordId)
-                WordsListHolder.Action.PLAY->playSet(wordId)
+                WordsListHolder.Action.DELETE ->deleteSet(wordId)
+                WordsListHolder.Action.PLAY ->playSet(wordId)
             }
         })
         binding.wordsList.adapter=adapter
@@ -48,13 +47,22 @@ class WordsListFragment : Fragment() {
         wordsViewModel.navigateToEditWords.observe(viewLifecycleOwner, Observer {
             if (it!=null) {
                 this.findNavController()
-                        .navigate(WordsListFragmentDirections.actionWordsListFragmentToEditWordsFragment(it))
+                        .navigate(
+                            WordsListFragmentDirections.actionWordsListFragmentToEditWordsFragment(
+                                it
+                            )
+                        )
                 wordsViewModel.doneNavigation()
             }
         })
         wordsViewModel.onFastPlaySet.observe(viewLifecycleOwner, Observer {
             if (it!=null){
-                findNavController().navigate(WordsListFragmentDirections.actionWordsListFragmentToTrainingFragment(it,TrainingType.BASIC))
+                findNavController().navigate(
+                    WordsListFragmentDirections.actionWordsListFragmentToTrainingFragment(
+                        it,
+                        TrainingType.BASIC
+                    )
+                )
 
             }
         })

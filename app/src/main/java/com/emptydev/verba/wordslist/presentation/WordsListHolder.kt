@@ -1,4 +1,4 @@
-package com.emptydev.verba.wordslist
+package com.emptydev.verba.wordslist.presentation
 
 import android.util.Log
 import android.view.View
@@ -6,7 +6,7 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.emptydev.verba.R
-import com.emptydev.verba.database.Words
+import com.emptydev.verba.core.data.model.WordsSet
 
 class WordsListHolder(val view : View):RecyclerView.ViewHolder(view){
     enum class Action{DELETE,PLAY}
@@ -17,7 +17,7 @@ class WordsListHolder(val view : View):RecyclerView.ViewHolder(view){
     val playButton:ImageButton=view.findViewById(R.id.playButton)
 
     val mainView: ConstraintLayout=view.findViewById(R.id.main_view)
-    fun bind(item: Words,itemClick:(Long)->Unit,onOptions:(Long,Action)->Unit){
+    fun bind(item: WordsSet, itemClick:(Long)->Unit, onOptions:(Long, Action)->Unit){
         numWords.text="${view.context!!.getString(R.string.words)}: ${item.numWords}"
         nameWords.text="${item.name}"
         mainView.isLongClickable=true
@@ -32,7 +32,7 @@ class WordsListHolder(val view : View):RecyclerView.ViewHolder(view){
             popupMenu.inflate(R.menu.context_menu_words)
             popupMenu.setOnMenuItemClickListener {
                 when(it.itemId){
-                    R.id.action_delete-> onOptions.invoke(item.wordId,Action.DELETE)
+                    R.id.action_delete-> onOptions.invoke(item.wordId, Action.DELETE)
                 }
                 return@setOnMenuItemClickListener false
             }
@@ -43,7 +43,7 @@ class WordsListHolder(val view : View):RecyclerView.ViewHolder(view){
         progressBar.progress=item.lastResultPrc
         progressText.text="${item.lastResultPrc}%"
         playButton.setOnClickListener {
-            onOptions.invoke(item.wordId,Action.PLAY)
+            onOptions.invoke(item.wordId, Action.PLAY)
         }
     }
 

@@ -1,6 +1,6 @@
 package com.emptydev.verba.di
 
-import com.emptydev.verba.database.WordsDatabase
+import com.emptydev.verba.core.data.database.WordsDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 

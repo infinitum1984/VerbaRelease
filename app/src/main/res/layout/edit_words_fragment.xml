@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.emptydev.verba.editwords.EditWordsViewModel" />
+            type="com.emptydev.verba.editwords.presentation.EditWordsViewModel" />
     </data>
 <ScrollView
     android:layout_width="match_parent"
@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".editwords.EditWordsFragment">
+        tools:context=".editwords.presentation.EditWordsFragment">
 
 
         <com.google.android.material.textfield.TextInputLayout
