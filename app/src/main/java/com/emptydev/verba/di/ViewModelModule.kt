@@ -4,7 +4,7 @@ import com.emptydev.verba.editwords.presentation.EditWordsViewModel
 import com.emptydev.verba.finish.presentation.FinishViewModel
 import com.emptydev.verba.training.presentation.TrainingType
 import com.emptydev.verba.training.presentation.TrainingViewModel
-import com.emptydev.verba.wordslist.presentation.WordsListViewModel
+import com.emptydev.verba.wordskit.presentation.WordsListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

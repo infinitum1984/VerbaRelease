@@ -1,4 +1,4 @@
-package com.emptydev.verba.wordslist.presentation
+package com.emptydev.verba.wordskit.presentation
 
 import android.os.Bundle
 import android.view.*
@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,8 @@ import com.emptydev.verba.databinding.WordsListFragmentBinding
 import com.emptydev.verba.delete.DeleteDialog
 import com.emptydev.verba.training.presentation.TrainingType
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinApiExtension
 
@@ -39,12 +42,11 @@ class WordsListFragment : Fragment() {
             }
         })
         binding.wordsList.adapter=adapter
-        wordsViewModel.words.observe(viewLifecycleOwner, Observer {
-
+        wordsViewModel.words.onEach {
             adapter.setData(it)
 
-        })
-        wordsViewModel.navigateToEditWords.observe(viewLifecycleOwner, Observer {
+        }.launchIn(lifecycleScope)
+          wordsViewModel.navigateToEditWords.observe(viewLifecycleOwner, Observer {
             if (it!=null) {
                 this.findNavController()
                         .navigate(

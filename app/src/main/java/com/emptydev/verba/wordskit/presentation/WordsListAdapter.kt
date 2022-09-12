@@ -1,14 +1,14 @@
-package com.emptydev.verba.wordslist.presentation
+package com.emptydev.verba.wordskit.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.emptydev.verba.R
-import com.emptydev.verba.core.data.model.WordsSet
+import com.emptydev.verba.core.data.model.WordsKit
 
 class WordsListAdapter(val itemClick:(Long)->Unit, val itemLongCLick:(Long, WordsListHolder.Action)->Unit):RecyclerView.Adapter<WordsListHolder>() {
-    private var dataList= listOf<WordsSet>()
-    fun setData(list:List<WordsSet>){
+    private var dataList= listOf<WordsKit>()
+    fun setData(list:List<WordsKit>){
         dataList=list
         notifyDataSetChanged()
     }

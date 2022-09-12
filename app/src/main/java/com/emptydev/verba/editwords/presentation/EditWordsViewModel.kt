@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.emptydev.verba.arrayToString
-import com.emptydev.verba.core.data.model.WordsSet
+import com.emptydev.verba.core.data.model.WordsKit
 import com.emptydev.verba.core.data.database.WordsDatabaseDao
 import kotlinx.coroutines.launch
 
@@ -80,7 +80,7 @@ class EditWordsViewModel(
             _onTextChanged.value=false
         }
     }
-    private suspend fun update(set: WordsSet){
+    private suspend fun update(set: WordsKit){
         database.update(set)
     }
 
@@ -96,7 +96,7 @@ class EditWordsViewModel(
     }
     fun deleteSet(){
         viewModelScope.launch {
-            database.delete(wordsSet.value!!.wordId)
+            database.deleteWordsKit(wordsSet.value!!.wordId)
             _onSetDeleted.value=true
         }
     }

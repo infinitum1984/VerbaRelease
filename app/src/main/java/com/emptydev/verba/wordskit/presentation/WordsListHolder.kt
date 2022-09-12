@@ -1,4 +1,4 @@
-package com.emptydev.verba.wordslist.presentation
+package com.emptydev.verba.wordskit.presentation
 
 import android.util.Log
 import android.view.View
@@ -6,7 +6,7 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.emptydev.verba.R
-import com.emptydev.verba.core.data.model.WordsSet
+import com.emptydev.verba.core.data.model.WordsKit
 
 class WordsListHolder(val view : View):RecyclerView.ViewHolder(view){
     enum class Action{DELETE,PLAY}
@@ -17,14 +17,14 @@ class WordsListHolder(val view : View):RecyclerView.ViewHolder(view){
     val playButton:ImageButton=view.findViewById(R.id.playButton)
 
     val mainView: ConstraintLayout=view.findViewById(R.id.main_view)
-    fun bind(item: WordsSet, itemClick:(Long)->Unit, onOptions:(Long, Action)->Unit){
+    fun bind(item: WordsKit, itemClick:(Long)->Unit, onOptions:(Long, Action)->Unit){
         numWords.text="${view.context!!.getString(R.string.words)}: ${item.numWords}"
         nameWords.text="${item.name}"
         mainView.isLongClickable=true
-        mainView.setTag(item.wordId)
+        mainView.setTag(item.id)
 
         view.setOnClickListener {
-            itemClick.invoke(item.wordId)
+            itemClick.invoke(item.id)
         }
         view.setOnLongClickListener {
             Log.d("D_WordsListHolder","bind: long click");
@@ -32,18 +32,18 @@ class WordsListHolder(val view : View):RecyclerView.ViewHolder(view){
             popupMenu.inflate(R.menu.context_menu_words)
             popupMenu.setOnMenuItemClickListener {
                 when(it.itemId){
-                    R.id.action_delete-> onOptions.invoke(item.wordId, Action.DELETE)
+                    R.id.action_delete-> onOptions.invoke(item.id, Action.DELETE)
                 }
                 return@setOnMenuItemClickListener false
             }
             popupMenu.show()
             return@setOnLongClickListener true
         }
-        view.tag=item.wordId
+        view.tag=item.id
         progressBar.progress=item.lastResultPrc
         progressText.text="${item.lastResultPrc}%"
         playButton.setOnClickListener {
-            onOptions.invoke(item.wordId, Action.PLAY)
+            onOptions.invoke(item.id, Action.PLAY)
         }
     }
 

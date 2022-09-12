@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/wordsListFragment"
-        android:name="com.emptydev.verba.wordslist.presentation.WordsListFragment"
+        android:name="com.emptydev.verba.wordskit.presentation.WordsListFragment"
         android:label="words_list_fragment"
         tools:layout="@layout/words_list_fragment" >
 

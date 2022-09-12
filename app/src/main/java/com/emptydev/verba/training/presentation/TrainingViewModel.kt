@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.emptydev.verba.*
-import com.emptydev.verba.core.data.model.WordsSet
+import com.emptydev.verba.core.data.model.WordsKit
 import com.emptydev.verba.core.data.database.WordsDatabaseDao
 
 import kotlinx.coroutines.launch
@@ -14,7 +14,7 @@ import kotlin.math.roundToInt
 
 class TrainingViewModel(val wordsKey:Long, val trainingType: TrainingType, val database:WordsDatabaseDao ) : ViewModel() {
     // TODO: Implement the ViewModel
-    lateinit var wordsSetObject: WordsSet
+    lateinit var wordsKitObject: WordsKit
 
     //private val _Words= MutableLiveData<Map<String,String>>()
     val Words: ArrayList<Pair<String,String>> = ArrayList()
@@ -51,21 +51,21 @@ class TrainingViewModel(val wordsKey:Long, val trainingType: TrainingType, val d
     init {
         Log.d("D_TrainingViewModel",": $trainingType");
         viewModelScope.launch {
-            wordsSetObject=database.get(wordsKey)
+            wordsKitObject=database.get(wordsKey)
             var map:List<Pair<String,String>>
 
             when(trainingType){
 
                 TrainingType.BASIC -> {
-                    map= stringToPairArray(wordsSetObject.words)
+                    map= stringToPairArray(wordsKitObject.words)
 
                 }
-                TrainingType.LAST_MISTAKE -> map= stringToPairArray(wordsSetObject.lastMistakes)
+                TrainingType.LAST_MISTAKE -> map= stringToPairArray(wordsKitObject.lastMistakes)
                 TrainingType.REVERS ->{
-                    map= stringToPairArrayRevers(wordsSetObject.words)
+                    map= stringToPairArrayRevers(wordsKitObject.words)
                 }
                 TrainingType.REVERS_LAST_MISTAKE ->{
-                    map= stringToPairArrayRevers(wordsSetObject.lastMistakes)
+                    map= stringToPairArrayRevers(wordsKitObject.lastMistakes)
                 }
 
             }
@@ -77,7 +77,7 @@ class TrainingViewModel(val wordsKey:Long, val trainingType: TrainingType, val d
             _curWordPairNum.value= Pair(1,Words.size)
             _mistakes.value=Mistakes
             _curPairWords.value= Words[curWordId]
-            _nameWordsList.value=wordsSetObject.name
+            _nameWordsList.value=wordsKitObject.name
         }
 
 
@@ -129,19 +129,19 @@ class TrainingViewModel(val wordsKey:Long, val trainingType: TrainingType, val d
     fun saveResults(){
         viewModelScope.launch {
             if (trainingType== TrainingType.REVERS || trainingType== TrainingType.REVERS_LAST_MISTAKE){
-                wordsSetObject.lastMistakes= arrayToStringRevers(Mistakes)
+                wordsKitObject.lastMistakes= arrayToStringRevers(Mistakes)
             }else{
-                wordsSetObject.lastMistakes= arrayToString(Mistakes)
+                wordsKitObject.lastMistakes= arrayToString(Mistakes)
             }
             if (trainingType!= TrainingType.LAST_MISTAKE && trainingType!= TrainingType.REVERS_LAST_MISTAKE){
-                wordsSetObject.lastResultPrc= (100-(Mistakes.size.toDouble()*100)/  wordsSetObject.numWords.toDouble()).roundToInt()
+                wordsKitObject.lastResultPrc= (100-(Mistakes.size.toDouble()*100)/  wordsKitObject.numWords.toDouble()).roundToInt()
             }
-            update(wordsSetObject)
+            update(wordsKitObject)
             _toFinish.value=true
 
         }
     }
-    private suspend fun update(set: WordsSet){
+    private suspend fun update(set: WordsKit){
         database.update(set)
     }
 
